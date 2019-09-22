@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rust Presentation</title>
+    <meta charset="utf-8">
+    <style>
+	body {
+        font-family: 'Hack Nerd Font Mono';
+        color: black;
+        max-width: 90%;
+      }
+	  
+	  h1, h2 {
+        font-family: 'Hack Nerd Font Mono';
+        max-width: 95%;
+      }
+      h3 {
+        font-family: 'Hack Nerd Font Mono';
+        max-width: 90%;
+      }
+      .remark-code, .remark-inline-code {
+        font-family: 'Hack Nerd Font Mono';
+        width: 100%;
+      }
+      .black_text {
+        color: black;
+        max-width: 90%;
+      }
+      .gray_text {
+        color: #454C52;
+        max-width: 90%;
+      }
+      .red_text {
+        color: #C14566;
+        max-width: 90%;
+      }
+      .white_text {
+        color: white;
+        max-width: 90%;
+      }
+      .remark-code-line-highlighted {
+         background-color: purple;
+      }
+      .remark-code-span-highlighted {
+         background-color: #f0572a;
+      }
+      .fitted-pic img {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+      }
+      .small-pic img {
+        height: auto;
+        width: auto;
+        max-height: 100px;
+        max-width: 350px;
+      }
+      .tiny-pic img {
+        height: auto;
+        width: auto;
+        max-height: 35px;
+        max-width: 35px;
+      }
+      .logo img {
+        height: auto;
+        width: auto;
+        max-height: 35px;
+        position: absolute;
+        top: 8%;
+        left: 1.7%;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+name: white
+class: black_text
+background-color: white
+
+---
+layout: true
+name: gray
+class: white_text
+background-color: #454C52
+
+---
+layout: true
+name: red
+class: white_text
+background-color: #C14566
+
+---
+layout: true
+name: green
+class: white_text
+background-color: #398277
+
+---
+layout: true
+name: purple 
+class: white_text
+background-color: #403D58
+
+---
+layout: true
+name: yellow
+class: black_text
+background-color: #FFD45E
+
+---
+layout: true
+name: blue
+class: white_text
+background-color: 
+
+---
+template: white
+# 💪 Empowered
+<br>
+<br>
+### A gentle invitation to Rust
+### 🤓 +  = 🚀
+<br>
+<br>
+### .gray_text[Rust London User Group]
+#### .gray_text[24th of September 2019]
+#### .gray_text[Pierre Chevalier]
+???
+TODO: notes
+---
+template: white
+
+#  Rust
+<br><br>
+## A language .red_text[empowering everyone] to build reliable and efficient software
+
+???
+
+The one-liner used to describe rust 
+---
+
+template: white
+# 🍲 The recipe
+<br><br>
+
+--
+count:false
+#### Get ready to rust
+
+--
+count:false
+#### Find your own itch
+
+--
+count:false
+#### Pick a giant
+
+--
+count:false
+#### Pull the tools out
+
+--
+count:false
+#### Release the unicorn
+
+---
+template: gray
+# 🏁 Get ready to rust
+
+--
+count:false
+* Download the rustup installer
+```
+curl -sSf https://sh.rustup.rs > rustup.sh
+```
+
+--
+count:false
+* Check the script out, then install rust
+```
+chmod +x rustup.sh && ./rustup.sh
+```
+
+--
+count:false
+* Install the rust formatter, linter and language server protocol
+```
+rustup component add rustfmt clippy rls
+```
+
+--
+count:false
+* Setup your text editor/IDE (format on save, RLS)
+
+--
+count:false
+* Install these two must-have tools
+```
+cargo install cargo-watch cargo-edit
+```
+
+---
+template: green 
+# 💡 Find your own itch
+<br><br>
+
+--
+count: false
+#### It is personal
+
+--
+count: false
+#### It is difficult
+
+--
+count:false
+#### Sources of inspiration
+* workflow pains
+* existing tools
+
+--
+count:false
+#### Example: @burntsushi's ripgrep
+* Itch: grep is slow
+* Solution:
+  * Let's do less work (`ignore` crate)
+  * Let's do it better `regex` crate (from rust-lang)
+
+---
+template: green 
+# 💡 Find your own itch
+<br><br>
+
+### Case study: .black_text[find_unicode]
+
+--
+count:false
+#### Itch
+* Finding unicode characters is tedious
+  * Launch a web browser
+  * Visit one of the unicode database sites
+  * Look for your character
+  * Copy it
+
+--
+count:false
+#### Solution
+* A simple fzf-like CLI tool
+
+---
+template: red
+# 🏋 Pick a giant
+<br><br>
+
+--
+count: false
+#### A crate out there does 80% of what you need
+
+--
+count: false
+#### By re-using
+* Get a quality implementation
+* Performance and updates for free
+* Give back to the community (feedback, PRs, ...)
+
+--
+count: false
+#### Example: @sharkdp's fd
+"Concerning fd's speed, the main credit goes to the regex and ignore crates that are also used in ripgrep (check it out!)."
+
+---
+template: red
+# 🏋 Pick a giant
+<br><br>
+### Case study: .black_text[find_unicode]
+
+--
+count: false
+#### From the unicode data, generate a file like this:
+```
+...
+🥼	lab coat
+🥽	goggles
+🥾	hiking boot
+🥿	flat shoe
+🦀	crab
+🦁	lion face
+🦂	scorpion
+🦃	turkey
+🦄	unicorn face
+...
+```
+
+---
+template: red
+# 🏋 Pick a giant
+<br><br>
+### Case study: .black_text[find_unicode]
+
+--
+count: false
+#### Leverage @lotabout's skim for the fzf-like interface
+.fitted-pic[![fu](assets/images/fu.gif)]
+
+---
+template: gray
+# 🛠 Pull the tools out
+
+--
+count: false
+* Create your crate
+```
+cargo new find_unicode
+```
+
+--
+count: false
+* Watch rustc do its thing
+```
+cargo watch
+```
+
+--
+count: false
+* Pull in your dependencies
+```
+cargo add skim
+```
+
+--
+count: false
+* Read the friendly manual
+```
+cargo doc --open
+```
+
+---
+template: gray
+# 🛠 Pull the tools out
+
+
+--
+count: false
+* Code away!
+
+```
+use skim::{Skim, SkimOptionsBuilder};
+use std::io::BufReader;
+
+fn main() {
+    let data = BufReader::new(&include_bytes!("UnicodeData")[..]);
+    let options = SkimOptionsBuilder::default().build().unwrap();
+    Skim::run_with(&options, Some(Box::new(data))).map(|output| {
+        for item in output.selected_items {
+            println!("{}", item.get_text());
+        }
+    });
+}
+```
+
+--
+count: false
+* Run as you go
+
+```
+cargo run
+```
+
+---
+template: yellow
+# 🦄 Untie the unicorn
+<br><br>
+
+--
+count: false
+* Sprinkle a few crates for garnish
+
+  * structopt: Now you CLI
+  * serde: Much json
+  * dirs: Get the config files in the right place
+  * ...
+
+--
+count: false
+* Write some doc comments
+
+--
+count: false
+* Add the metadata
+
+--
+count: false
+* Write a nice readme and push to GitHub
+
+--
+count: false
+* And before you now it, you've authored a crate
+```
+cargo publish
+```
+
+---
+template: green 
+# 😃 Welcome to Rust!
+<br><br>
+
+--
+count: false
+# Let's get buildin'!
+---
+template: white
+<br><br><br>
+.center[
+.small-pic[![rust](assets/images/ferris.png)]
+<br><br>
+# Thank you!
+<br>
+]
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        highlightLanguage: 'rust',
+        highlightLines: 'true',
+        highlightSpans: 'true'
+	  });
+    </script>
+  </body>
+</html>
+
