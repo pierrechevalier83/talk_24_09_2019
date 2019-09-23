@@ -204,15 +204,27 @@ It is very versatile and lets you decide whether you want to use the stable vers
 
 If you're just starting, you'll want to keep with the default and simply install rustup by running this script. It will install rustup itself, the rust compiler, the standard library, the build system and the documentation tool.
 
---
+---
 count:false
+template: gray
+# 🏁 Get ready to rust
+
+* Download the rustup installer
+```
+curl -sSf https://sh.rustup.rs > rustup.sh
+```
+
+* Check the script out, then install rust
+```
+chmod +x rustup.sh && ./rustup.sh
+```
+
 * Install the rust formatter, linter and language server
 ```
 rustup component add rustfmt clippy rls
 ```
 
 ???
-***
 You may use rustup to install other tool.
 I highly recommend rustfmt, which will format your code in a style that the entire community uses.
 It will help you feel at home with the formatting when reading other people's code and help others feel comfortable reading your code.
@@ -283,8 +295,19 @@ count:false
 Two sources of inspirations that work for me include workflow pains: if there is something you do often that's a bit frustrating, you may want to write a tool to do it better.
 
 Also, you may find an existing tool that solves a problem and think to yourself: what if we could solve this same problem in a different context?
---
+---
 count:false
+template: green 
+# 💡 Find your itch
+<br><br>
+
+#### It is personal
+#### It is difficult
+
+#### Sources of inspiration
+* workflow pains
+* existing tools
+
 #### Example: @burntsushi's ripgrep
 * Itch: grep is slow
 * Solution:
@@ -292,8 +315,7 @@ count:false
   * Let's do it better ⟹ .black_text[`regex`] crate (from rust-lang)
 
 ???
-***
-Here is an example of a developer scratching an itch: burntsushi, from the rust community found that grepping tools where too slow for its liking; so he wrote ripgrep which does the job much faster.
+Here is an example of a developer scratching an itch: burntsushi, from the rust community found that grepping tools where too slow for their liking; so they wrote ripgrep which does the job much faster.
 
 In general, you know it's a good idea when you can explain its purpose in a single sentence.
 ---
@@ -494,16 +516,32 @@ cargo add skim
 
 ???
 ***
-Since you installed cargo-edit when getting setup, you can automatically add a dependency without manually messing up with your Cargo.toml configuration file.
---
+Since you installed cargo-edit when getting setup, you can automatically add a dependency without manually messing with your Cargo.toml configuration file.
+---
 count: false
+template: gray
+# 🛠 Pull the tools out
+
+* Create your crate
+```
+cargo new find_unicode
+```
+
+* Watch rustc do its thing
+```
+cargo watch
+```
+
+* Pull in your dependencies
+```
+cargo add skim
+```
 * Read the friendly manual
 ```
 cargo doc --open
 ```
 
 ???
-***
 And finally, you can use cargo doc to generate documentation for your crate, including all its dependencies.
 
 This is a great way to figure out how to use the libraries you depend on.
@@ -523,7 +561,7 @@ Now, as you go, you can keep your code tidy by running cargo fmt and cargo clipp
 
 You can integrate these a bit more tightly in your workflow with git hooks as you see fit.
 
-With cargo run, you can quickly manually see how your program runs.
+With cargo run, you can quickly manually check whether your program is working as expected.
 --
 count: false
 * Code away!
@@ -547,7 +585,7 @@ fn main() {
 ***
 An you are now ready to code.
 
-I told you before that using the skim crate made find_unicode surprisingly easy.
+I told you before that reusing the skim crate made coding find_unicode surprisingly easy.
 
 This is all of the core logic, neatly fitted on one slide for you.
 ---
@@ -587,12 +625,22 @@ If you are working with serialized data as input or output, you may want to look
 If you're reading a config file, you may want to use dirs to be sure to grab it from a canonical location for each operating system.
 
 The list goes on. The general message is: look around: most of the common problems have a good solution.
---
+---
 count: false
+template: yellow
+# 🦄 Untie the unicorn
+<br><br>
+
+* Sprinkle a few crates for garnish
+
+  * structopt: Now you CLI
+  * serde: Much json
+  * dirs: Get the config files in the right place
+  * ...
+
 * Write some doc comments
 
 ???
-***
 Rust makes it easy to document your code. Simply add doc comments (comments preceded by three slashes) around your code and run cargo doc.
 Your users will thank you.
 --
@@ -628,7 +676,7 @@ template: green
 ???
 So that's it. I hope I succeeded in convincing you that diving into Rust isn't as scary as you may have thought it was.
 
-I'm looking forward to see what you all build!
+I'm looking forward to seeing what you all build!
 
 ---
 template: white
