@@ -128,7 +128,19 @@ template: white
 #### .gray_text[24th of September 2019]
 #### .gray_text[Pierre Chevalier]
 ???
-TODO: notes
+Hi, I'm Pierre, I've been a rust fanboy for a few years now.
+I joined Twitter recently and a recurring subject of conversation around lunch has been inclusiveness in Tech:
+How do we make it easy for people from diverse backgrounds to get started in tech.
+
+This is an area where I feel the Rust community is doing many things right, with a real awareness of inclusiveness themes in the community.
+
+That being said, despite everyone's best efforts, it can still be a bit intimidating for some people who are new to programming or to Rust to take their initial dive.
+
+In this talk, I'll try to address this by giving an overview of how to get from
+"I've never written any rust and I'm not sure where to start"
+to
+"crate author".
+
 ---
 template: white
 
@@ -137,9 +149,24 @@ template: white
 ## A language .red_text[empowering everyone] to build reliable and efficient software
 
 ???
+From the rust website, rust describes itself as a language empowering everyone to build reliable and efficient software.
 
-The one-liner used to describe rust 
+Everyone includes you, so how can *you* get empowered?
+
 ---
+template: white
+# 🍲 The recipe
+<br><br>
+#### 🏁
+#### 💡
+#### 🏋
+#### 🛠
+#### 🦄
+
+???
+Follow this simple recipe:
+---
+count:false
 template: white
 # 🍲 The recipe
 <br><br>
@@ -149,24 +176,33 @@ template: white
 #### 🏋
 #### 🛠
 #### 🦄
+???
+First, you'll need to install a few tools, including the rust compiler itself.
 
+This step can already be a bit scary in some languages, but Rust has got you covered here and makes things pretty easy.
+
+I've got a few recommendations that fit on a slide and should be enough to make you comfortable hacking on some Rust.
 ---
 template: gray
 # 🏁 Get ready to rust
 
---
-count:false
 * Download the rustup installer
 ```
 curl -sSf https://sh.rustup.rs > rustup.sh
 ```
 
---
-count:false
 * Check the script out, then install rust
 ```
 chmod +x rustup.sh && ./rustup.sh
 ```
+
+???
+First, you'll need to install the rust toolchain.
+
+There is a tool called rustup that manages this for you.
+It is very versatile and lets you decide whether you want to use the stable version of the compiler or the nightly release, etc.
+
+If you're just starting, you'll want to keep with the default and simply install rustup by running this script. It will install rustup itself, the rust compiler, the standard library, the build system and the documentation tool.
 
 --
 count:false
@@ -175,10 +211,23 @@ count:false
 rustup component add rustfmt clippy rls
 ```
 
+???
+***
+You may use rustup to install other tool.
+I highly recommend rustfmt, which will format your code in a style that the entire community uses.
+It will help you feel at home with the formatting when reading other people's code and help others feel comfortable reading your code.
+
+clippy is a linter. It will help you write more idiomatic code. It can be an excellent teacher.
+
+The Rust Language Server, or RLS for short will integrate with your favourite development environment or text editor to give them rust support.
+
 --
 count:false
 * Setup your text editor/IDE (format on save, RLS)
 
+???
+***
+Now, which text editor or IDE you want to use is a personal choice, but you may want to do a bit of setup to streamline your experience of writing rust.
 --
 count:false
 * Install these two must-have tools
@@ -186,6 +235,10 @@ count:false
 cargo install cargo-watch cargo-edit
 ```
 
+???
+***
+Finally, I highly recommend `cargo watch`, which will compile your code every time you modify the source
+and cargo-edit which takes the hassle away from managing dependencies.
 ---
 template: white
 # 🍲 The recipe
@@ -198,25 +251,38 @@ template: white
 #### 🛠
 #### 🦄
 
+???
+Then you'll want to find an idea for your project.
+
+That part can be quite intimidating.
+
 ---
 template: green 
 # 💡 Find your own itch
 <br><br>
 
---
-count: false
 #### It is personal
 
+???
+You will want to build something that *you* will be glad to have built, by the end of the process.
 --
 count: false
 #### It is difficult
 
+???
+***
+If you struggle, don't feel bad. It is genuinely difficult. Luckily, no-one is pressuring you to come up with an idea yesterday, so you can take all the time in the world until you know what you want to do.
 --
 count:false
 #### Sources of inspiration
 * workflow pains
 * existing tools
 
+???
+***
+Two sources of inspirations that work for me include workflow pains: if there is something you do often that's a bit frustrating, you may want to write a tool to do it better.
+
+Also, you may find an existing tool that solves a problem and think to yourself: what if we could solve this same problem in a different context?
 --
 count:false
 #### Example: @burntsushi's ripgrep
@@ -225,6 +291,11 @@ count:false
   * Let's do less work ⟹ .black_text[`ignore`] crate
   * Let's do it better ⟹ .black_text[`regex`] crate (from rust-lang)
 
+???
+***
+Here is an example of a developer scratching an itch: burntsushi, from the rust community found that grepping tools where too slow for its liking; so he wrote ripgrep which does the job much faster.
+
+In general, you know it's a good idea when you can explain its purpose in a single sentence.
 ---
 template: green 
 # 💡 Find your own itch
@@ -232,6 +303,12 @@ template: green
 
 ### Case study: .black_text[find_unicode]
 
+???
+Now, everyone isn't going to solve a problem that affects millions of computer users.
+
+I'll show you a much less ambitious idea that's a project I built recently.
+
+The only thing you're looking for is to solve a problem you care about solving.
 --
 count:false
 #### Itch
@@ -241,11 +318,21 @@ count:false
   * Look for your character
   * Copy it
 
+???
+***
+I like unicode characters, as you may be able to judge by these slides.
+
+My idea was that finding a specific unicode character involves way too much clicking around in the browser.
 --
 count:false
 #### Solution
-* A simple fzf-like CLI tool
+* A simple fzf-like command-line tool
 
+???
+***
+So I decided to write a simple command line tool to help quickly find a unicode character from its description.
+
+I like the workflow of using fzf, so I decided to emulate that workflow.
 ---
 template: green
 # 💡 Find your own itch
@@ -253,10 +340,15 @@ template: green
 
 ### Case study: .black_text[find_unicode]
 
---
-count:false
 #### fzf (Command line fuzzy finder)
 .fitted-pic[![fu](assets/images/fzf.gif)]
+
+???
+Just in case you're not familiar with fzf, it's a simple command line tool that allows to quickly search for something, typically a file on your file system.
+
+You just type a few letters and it uses a fuzzy finding algorithm to give you the most similar results.
+
+So as you can see, in this case, I was inspired both by a workflow pain and by an existing tool.
 
 ---
 template: white
@@ -269,15 +361,22 @@ template: white
 #### 🛠
 #### 🦄
 
+???
+There is a famous quote attributed to Newton, which goes:
+
+"If I have seen further it is by standing on the shoulders of Giants"
+
+This definitely applies to software, and especially in the open source world.
+
 ---
 template: red
 # 🏋 Pick a giant
 <br><br>
 
---
-count: false
 #### A crate out there does 80% of what you need
 
+???
+So once you've found a good idea of a problem to solve, you will want to browse the crates ecosystem to find a candidate to do the heavy lifting for you.
 --
 count: false
 #### By re-using
@@ -285,17 +384,29 @@ count: false
 * Performance and updates for free
 * Give back to the community (feedback, PRs, ...)
 
+???
+***
+Re-using code is good for you, but it is also good for the community as you are helping consolidate the ecosystem by adding in your own testing etc.
 --
 count: false
 #### Example: @sharkdp's fd
 "Concerning fd's speed, the main credit goes to the regex and ignore crates that are also used in ripgrep (check it out!)."
 
+???
+***
+For example I commented earlier that ripgrep would be quite an ambitious project to tackle.
+
+While this is true, you can easily take the things that make ripgrep awesome and reuse them to solve an adjacent problem.
+
+This is what sharkdp has done with `fd`, which is a faster alternative to find.
 ---
 template: red
 # 🏋 Pick a giant
 <br><br>
 ### Case study: .black_text[find_unicode]
 
+???
+So let's get back to find_unicode and see how we can reuse the hard work of other community members.
 --
 count: false
 #### From the unicode data, generate a file like this:
@@ -311,16 +422,26 @@ count: false
 ...
 ```
 
+???
+***
+Part of the problem consists of finding a good source of truth for the unicode data and generating a file that lists the unicode characters with their description.
+
+This is a story of transforming data from one representation to another and rust lets you do this very easily.
 ---
 template: red
 # 🏋 Pick a giant
 <br><br>
 ### Case study: .black_text[find_unicode]
 
---
-count: false
 #### Leverage @lotabout's skim for the fzf-like interface
 .fitted-pic[![fu](assets/images/fu.gif)]
+
+???
+Once this data is available, fzf is written in go and is very popular; so of course someone wrote a clone in rust.
+
+So using skim, which is a rust clone of fzf, I can very easily attain my goal.
+
+You will see how easy it was later in this talk, and you may be surprised.
 
 ---
 template: white
@@ -333,6 +454,11 @@ template: white
 #### 🛠 Pull the tools out
 #### 🦄
 
+???
+So you know what you're going to do and how you're going to do it.
+
+Now is time to get the tools out of your toolbox and start building.
+
 ---
 template: gray
 # 🛠 Pull the tools out
@@ -344,6 +470,11 @@ count: false
 cargo new find_unicode
 ```
 
+???
+Create your crate. This will create a simple rust project for you with a working hello world program and a git repository.
+
+Now is a good time to commit your first commit.
+
 --
 count: false
 * Watch rustc do its thing
@@ -351,6 +482,11 @@ count: false
 cargo watch
 ```
 
+???
+***
+If you run cargo watch in a window next to your text editor, you can get instant feedback on the state of your code every time you save.
+
+This may be redundant with your RLS setup, but personally I like it for compilation errors that are a bit more verbose.
 --
 count: false
 * Pull in your dependencies
@@ -358,6 +494,9 @@ count: false
 cargo add skim
 ```
 
+???
+***
+Since you installed cargo-edit when getting setup, you can automatically add a dependency without manually messing up with your Cargo.toml configuration file.
 --
 count: false
 * Read the friendly manual
@@ -365,11 +504,28 @@ count: false
 cargo doc --open
 ```
 
+???
+***
+And finally, you can use cargo doc to generate documentation for your crate, including all its dependencies.
+
+This is a great way to figure out how to use the libraries you depend on.
 ---
 template: gray
 # 🛠 Pull the tools out
 
 
+* Run as you go
+
+```
+cargo fmt && cargo clippy && cargo run
+```
+
+???
+Now, as you go, you can keep your code tidy by running cargo fmt and cargo clippy regularly.
+
+You can integrate these a bit more tightly in your workflow with git hooks as you see fit.
+
+With cargo run, you can quickly manually see how your program runs.
 --
 count: false
 * Code away!
@@ -389,14 +545,13 @@ fn main() {
 }
 ```
 
---
-count: false
-* Run as you go
+???
+***
+An you are now ready to code.
 
-```
-cargo run
-```
+I told you before that using the skim crate made find_unicode surprisingly easy.
 
+This is all of the core logic, neatly fitted on one slide for you.
 ---
 template: white
 # 🍲 The recipe
@@ -408,13 +563,15 @@ template: white
 #### 🛠 .gray_text[Pull the tools out]
 #### 🦄 Untie the unicorn
 
+???
+So once you got to a minimum working solution for your problem, you may want to share it with the community.
+
+Here is some advice to prep up for the big day.
 ---
 template: yellow
 # 🦄 Untie the unicorn
 <br><br>
 
---
-count: false
 * Sprinkle a few crates for garnish
 
   * structopt: Now you CLI
@@ -422,18 +579,40 @@ count: false
   * dirs: Get the config files in the right place
   * ...
 
+???
+As I recommended you re-use an existing crate for the main logic of your app, I would also recommend you look around the ecosystem for crates that can help polish up your work to a better finish.
+
+For instance, by using structopt, you can get a consistent and very good command line parsing story for minimal effort.
+
+If you are working with serialized data as input or output, you may want to look into serde to make this very easy.
+
+If you're reading a config file, you may want to use dirs to be sure to grab it from a canonical location for each operating system.
+
+The list goes on. The general message is: look around: most of the common problems have a good solution.
 --
 count: false
 * Write some doc comments
 
+???
+***
+Rust makes it easy to document your code. Simply add doc comments (comments preceded by three slashes) around your code and run cargo doc.
+Your users will thank you.
 --
 count: false
 * Add the metadata
 
+???
+***
+In your Cargo.toml, you can specify a few things such as keywords or your license. These will help make your crate discoverable by other community members.
 --
 count: false
 * Write a nice readme and push to GitHub
 
+???
+***
+When people look for an app that solves the problem you're solving, they will often end up in your github repo.
+
+A nice readme with a simple explanation of what you're doing and a couple of screenshots can help them decide to use your tool.
 --
 count: false
 * And before you now it, you've authored a crate
@@ -446,13 +625,19 @@ template: green
 # 😃 Welcome to Rust!
 <br><br>
 
---
-count: false
 # Let's get buildin'!
+
+???
+So that's it. I hope I succeeded in convincing you that diving into Rust isn't as scary as you may have thought it was.
+
+I'm looking forward to see what you all build!
+
 ---
 template: white
 # 🧐 Any question?
 
+???
+Any question?
 --
 count: false
 <br><br>
@@ -461,6 +646,7 @@ count: false
 <br><br>
 # Thank you!
 <br>
+#### .gray_text[https://github.com/pierrechevalier83/talk_24_09_2019]
 ]
 
     </textarea>
